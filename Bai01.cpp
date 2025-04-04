@@ -15,6 +15,7 @@ public:
     void ThuNho(float);
     float KhoangCach(cDiem);
     float BinhPhuongKC(cDiem);
+    void Xoay(float); 
     friend class cTamGiac;
 };
 
@@ -55,6 +56,14 @@ float cDiem::BinhPhuongKC(cDiem B) {
     return (x - B.x)*(x - B.x) + (y - B.y)*(y - B.y);
 }
 
+void cDiem::Xoay(float theta) {
+    float radian = theta * M_PI / 180.0;
+    float newX = x * cos(radian) - y * sin(radian);
+    float newY = x * sin(radian) + y * cos(radian);
+    x = newX;
+    y = newY;
+}
+
 class cTamGiac {
 private:
     cDiem A, B, C;
@@ -68,6 +77,7 @@ public:
     void TinhTien(float, float);
     void PhongTo(float);
     void ThuNho(float);
+    void Xoay(float); 
 };
 
 void cTamGiac::Nhap() {
@@ -134,6 +144,12 @@ void cTamGiac::ThuNho(float k) {
     C.ThuNho(k);
 }
 
+void cTamGiac::Xoay(float theta) {
+    A.Xoay(theta);
+    B.Xoay(theta);
+    C.Xoay(theta);
+}
+
 int main() {
     cTamGiac tg;
     int chon;
@@ -148,6 +164,7 @@ int main() {
         cout << "6. Tinh tien tam giac\n";
         cout << "7. Phong to tam giac\n";
         cout << "8. Thu nho tam giac\n";
+        cout << "9. Xoay tam giac\n";
         cout << "0. Thoat\n";
         cout << "Chon chuc nang: ";
         cin >> chon;
@@ -202,6 +219,15 @@ int main() {
                     cin >> k;
                     tg.ThuNho(k);
                     cout << "Da thu nho tam giac.\n";
+                } else cout << "Ban chua nhap tam giac!\n";
+                break;
+            case 9:
+                if (daNhap) {
+                    float theta;
+                    cout << "Nhap goc xoay (don vi do): ";
+                    cin >> theta;
+                    tg.Xoay(theta);
+                    cout << "Da xoay tam giac.\n";
                 } else cout << "Ban chua nhap tam giac!\n";
                 break;
             case 0:
